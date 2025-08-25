@@ -15,7 +15,7 @@ export default function Navbar() {
         
         {/* Logo + Name (Left Side) */}
         <div className="flex items-center space-x-2">
-          <Image src="/logo.png" alt="Logo" width={32} height={32} />
+          {/* <Image src="/logo.png" alt="Logo" width={32} height={32} /> */}
           <span className="text-xl font-bold">NextShop</span>
         </div>
 
@@ -28,7 +28,7 @@ export default function Navbar() {
           {/* Theme Toggle */}
           <input
             type="checkbox"
-            value="synthwave"
+            value="dark"
             className="toggle theme-controller"
           />
 
