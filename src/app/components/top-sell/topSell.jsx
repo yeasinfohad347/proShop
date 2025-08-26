@@ -9,7 +9,6 @@ const TopSell = async () => {
   // Connect to MongoDB and fetch top 6 products
   const serviceCollection = await dbConnetion("all-product");
   const data = await serviceCollection.find({}).limit(6).toArray();
-
   return (
     <section className="py-12 bg-gray-50">
       <div className="max-w-7xl mx-auto px-6">
