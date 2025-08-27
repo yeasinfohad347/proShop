@@ -29,7 +29,7 @@ const Footer = () => {
         <div>
           <h3 className="text-lg font-semibold mb-4">Follow Us</h3>
           <div className="flex space-x-4 mb-4">
-            <a href="https://www.facebook.com" target="_blank" rel="noopener noreferrer" className="hover:text-blue-500 transition">
+            <a href="https://.facebook.com" target="_blank" rel="noopener noreferrer" className="hover:text-blue-500 transition">
               <FaFacebookF />
             </a>
             <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="hover:text-blue-400 transition">

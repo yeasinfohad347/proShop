@@ -9,19 +9,27 @@ const TopSell = async () => {
   // Connect to MongoDB and fetch top 6 products
   const serviceCollection = await dbConnetion("all-product");
   const data = await serviceCollection.find({}).limit(6).toArray();
+
+  // ✅ Convert MongoDB ObjectId to string so Next.js can handle it
+  const products = data.map((product) => ({
+    ...product,
+    _id: product._id.toString(),
+  }));
+
   return (
     <section className="py-12 bg-gray-50">
       <div className="max-w-7xl mx-auto px-6">
-        <h2 className="text-3xl font-bold text-center mb-8">
-          🔥 Top Selling Products
+        <h2 className="text-3xl font-bold text-center mb-8 text-black">
+           Top Selling Products
         </h2>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {data.map((product) => (
+          {products.map((product) => (
             <div
-              key={product._id.toString()}
+              key={product._id}
               className="bg-white shadow-lg rounded-2xl overflow-hidden transform hover:scale-105 transition duration-300 flex flex-col h-full"
             >
+              {/* Product Image */}
               <div className="relative w-full h-60">
                 <Image
                   src={product.image}
@@ -29,16 +37,19 @@ const TopSell = async () => {
                   fill
                   className="rounded-t-2xl object-cover"
                   sizes="(max-width: 768px) 100vw, 25vw"
-                  unoptimized // Important for external images
+                  unoptimized // Use if images are from external URLs
                 />
               </div>
 
+              {/* Product Content */}
               <div className="p-4 flex flex-col flex-1">
-                <h3 className="text-lg font-semibold">{product.name}</h3>
+                <h3 className="text-lg font-semibold text-black">{product.name}</h3>
                 <p className="text-gray-500 text-sm">{product.category}</p>
                 <p className="mt-2 text-gray-700 text-sm line-clamp-2 flex-1">
                   {product.description}
                 </p>
+
+                {/* Price & Rating */}
                 <div className="flex items-center mt-3 space-x-2">
                   <span className="text-[#F07F13] font-bold text-xl">
                     ${product.price}
@@ -48,9 +59,12 @@ const TopSell = async () => {
                     <span className="ml-1 text-gray-700">{product.rating}</span>
                   </div>
                 </div>
+
                 <p className="mt-2 text-sm text-gray-500">
                   Stock: {product.stock}
                 </p>
+
+                {/* Product Details Link */}
                 <Link href={`/products/${product._id}`}>
                   <button className="w-full mt-4 bg-[#F07F13] text-white py-2 rounded-lg hover:bg-orange-600 transition">
                     Details

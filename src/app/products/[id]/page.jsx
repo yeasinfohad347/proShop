@@ -5,20 +5,22 @@ import { FaStar } from "react-icons/fa6";
 
 // Server Component
 const ProductDetails = async ({ params }) => {
-  const { id } = params; // Get productId from URL
-  console.log(id);
+  const { id } =await params; // ✅ fixed
 
-  // Connect to DB
-  const serviceCollection = await dbConnetion("all-product");
-  const product = await serviceCollection.findOne({ _id: new ObjectId(id) });
-  console.log(product);
+  let product = null;
+  try {
+    const serviceCollection = await dbConnetion("all-product");
+    product = await serviceCollection.findOne({ _id: new ObjectId(id) });
+  } catch (error) {
+    return <p className="text-center text-red-500 mt-10">Invalid product ID</p>;
+  }
 
   if (!product) {
     return <p className="text-center text-red-500 mt-10">Product not found!</p>;
   }
 
   return (
-    <section className="py-12 bg-gray-50">
+    <section className="py-20 bg-gray-50 min-h-screen">
       <div className="max-w-5xl mx-auto px-6 flex flex-col md:flex-row gap-8">
         {/* Product Image */}
         <div className="relative w-full md:w-1/2 h-96">
@@ -29,6 +31,7 @@ const ProductDetails = async ({ params }) => {
             className="object-cover rounded-2xl"
             sizes="(max-width: 768px) 100vw, 50vw"
             unoptimized
+            priority
           />
         </div>
 
@@ -52,7 +55,7 @@ const ProductDetails = async ({ params }) => {
             <p className="mt-2 text-sm text-black">Stock: {product.stock}</p>
           </div>
 
-          <button className="mt-6 w-full bg-[#F07F13]  py-3 rounded-lg hover:bg-orange-600 transition">
+          <button className="mt-6 w-full bg-[#F07F13] py-3 rounded-lg hover:bg-orange-600 transition">
             Add to Cart
           </button>
         </div>

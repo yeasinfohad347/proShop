@@ -21,7 +21,7 @@ export default function Hero() {
 
         {/* Slide 1 */}
         <div className="relative h-[80vh]">
-          <Image src="/images/banner-1.jpg" alt="Hero 1" fill className="object-cover" />
+          <Image src="/images/shoes-3.jpg" alt="Hero 1" fill className="object-cover" priority />
           <div className="absolute inset-0 flex flex-col items-center justify-center text-white text-center px-4">
             <h1 className="text-4xl md:text-6xl font-bold">
               <Typewriter
